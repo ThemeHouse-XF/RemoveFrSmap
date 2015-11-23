@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<addon addon_id="ThemeHouse_RemoveFrSmap" title="[⌂] Remove From Sitemap" version_string="1.0.0" version_id="1447261019" url="http://xf.themehouse.io/" install_callback_class="ThemeHouse_Install" install_callback_method="install" uninstall_callback_class="ThemeHouse_Install" uninstall_callback_method="uninstall">
+  <admin_navigation/>
+  <admin_permissions/>
+  <admin_style_properties/>
+  <admin_templates/>
+  <admin_template_modifications>
+    <modification template="forum_edit" modification_key="th_forumEdit_removeFrSitemap" description="Adds &quot;remove from sitemap&quot; option to forum editor." execution_order="10" enabled="1" action="preg_replace">
+      <find><![CDATA[#(<xen:hook name="forum_edit_basic_information">.*)(</xen:hook>)#Us]]></find>
+      <replace><![CDATA[${1}
+<fieldset>
+	<xen:checkboxunit label="">
+		<xen:option name="remove_from_sitemap" label="{xen:phrase th_remove_from_sitemap_removefrsitemap}" selected="{$forum.remove_from_sitemap_th}">
+			<xen:hint>{xen:phrase th_remove_from_sitemap_explain_removefrsitemap}</xen:hint>
+		</xen:option>
+	</xen:checkboxunit>
+	<input type="hidden" name="remove_from_sitemap_shown" value="1" />
+</fieldset>
+${2}]]></replace>
+    </modification>
+  </admin_template_modifications>
+  <code_events/>
+  <code_event_listeners>
+    <listener event_id="controller_pre_dispatch" execute_order="10" callback_class="ThemeHouse_Listener_ControllerPreDispatch" callback_method="controllerPreDispatch" active="1" hint="" description=""/>
+    <listener event_id="file_health_check" execute_order="10" callback_class="ThemeHouse_RemoveFrSmap_Listener_FileHealthCheck" callback_method="fileHealthCheck" active="1" hint="" description=""/>
+    <listener event_id="init_dependencies" execute_order="10" callback_class="ThemeHouse_Listener_InitDependencies" callback_method="initDependencies" active="1" hint="" description=""/>
+    <listener event_id="load_class" execute_order="10" callback_class="ThemeHouse_RemoveFrSmap_Listener_LoadClass" callback_method="loadClassSitemap" active="0" hint="XenForo_SitemapHandler_Node" description="XenForo_SitemapHandler_Node (For XenForo 1.2 and above)" compatibility_switch="1"/>
+    <listener event_id="load_class" execute_order="10" callback_class="ThemeHouse_RemoveFrSmap_Listener_LoadClass" callback_method="loadClassSitemap" active="0" hint="XenForo_SitemapHandler_Thread" description="XenForo_SitemapHandler_Thread (For XenForo 1.2 and above)" compatibility_switch="1"/>
+    <listener event_id="load_class" execute_order="10" callback_class="ThemeHouse_RemoveFrSmap_Listener_LoadClass" callback_method="loadClassModel" active="0" hint="XenForo_Model_Thread" description="XenForo_Model_Thread (For XenForo 1.2 and above)" compatibility_switch="1"/>
+    <listener event_id="load_class" execute_order="10" callback_class="ThemeHouse_RemoveFrSmap_Listener_LoadClass" callback_method="loadClassController" active="0" hint="XenForo_ControllerAdmin_Forum" description="XenForo_ControllerAdmin_Forum (For XenForo 1.2 and above)" compatibility_switch="1"/>
+    <listener event_id="load_class" execute_order="10" callback_class="ThemeHouse_RemoveFrSmap_Listener_LoadClass" callback_method="loadClassDataWriter" active="0" hint="XenForo_DataWriter_Forum" description="XenForo_DataWriter_Forum (For XenForo 1.2 and above)" compatibility_switch="1"/>
+    <listener event_id="load_class_controller" execute_order="10" callback_class="ThemeHouse_RemoveFrSmap_Listener_LoadClass" callback_method="loadClassController" active="1" hint="" description="(For XenForo 1.1 and below)" compatibility_switch="1"/>
+    <listener event_id="load_class_datawriter" execute_order="10" callback_class="ThemeHouse_RemoveFrSmap_Listener_LoadClass" callback_method="loadClassDataWriter" active="1" hint="" description="(For XenForo 1.1 and below)" compatibility_switch="1"/>
+    <listener event_id="load_class_model" execute_order="10" callback_class="ThemeHouse_RemoveFrSmap_Listener_LoadClass" callback_method="loadClassModel" active="1" hint="" description="(For XenForo 1.1 and below)" compatibility_switch="1"/>
+    <listener event_id="load_class_sitemap" execute_order="10" callback_class="ThemeHouse_RemoveFrSmap_Listener_LoadClass" callback_method="loadClassSitemap" active="1" hint="" description="(For XenForo 1.1 and below)" compatibility_switch="1"/>
+  </code_event_listeners>
+  <cron/>
+  <email_templates/>
+  <email_template_modifications/>
+  <optiongroups/>
+  <permissions>
+    <permission_groups/>
+    <permissions/>
+    <interface_groups/>
+  </permissions>
+  <phrases>
+    <phrase title="th_remove_from_sitemap_explain_removefrsitemap" version_id="1418067274" version_string="1.0.0"><![CDATA[If checked, this forum and all threads inside this forum will not appear in the sitemap. Note that this does not extend to any child nodes, which may still appear along with their threads.]]></phrase>
+    <phrase title="th_remove_from_sitemap_removefrsitemap" version_id="1418067274" version_string="1.0.0"><![CDATA[Remove from sitemap]]></phrase>
+  </phrases>
+  <route_prefixes/>
+  <style_properties/>
+  <templates/>
+  <public_template_modifications>
+    <modification template="footer" modification_key="th_copyrightNotice_removeFrSitemap" description="Copyright notice for Remove From Sitemap by ThemeHouse" execution_order="1" enabled="1" action="callback">
+      <find><![CDATA[/{xen:phrase (?:xenforo|extra)_copyright}/]]></find>
+      <replace><![CDATA[ThemeHouse_Listener_InitDependencies::copyrightNotice]]></replace>
+    </modification>
+    <modification template="footer" modification_key="th_copyrightNotice_removeFrSmap" description="Copyright notice for [⌂] Remove From Sitemap" execution_order="1" enabled="1" action="callback">
+      <find><![CDATA[/{xen:phrase (?:xenforo|extra)_copyright}/]]></find>
+      <replace><![CDATA[ThemeHouse_Listener_InitDependencies::copyrightNotice]]></replace>
+    </modification>
+  </public_template_modifications>
+  <bb_code_media_sites/>
+  <bb_codes/>
+</addon>
